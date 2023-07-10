@@ -10,7 +10,7 @@ import br.com.ocdev.myapplication.databinding.ActivityMain2Binding
 
 class MainActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivityMain2Binding
-    private var count = 0
+    private var initialNumber = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,18 +19,27 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(binding.root)
         binding.apply {
             btnCount.setOnClickListener {
-                count++
-                txtCount.text = count.toString()
+                txtCount.text = count(initialNumber).toString()
             }
         }
 
     }
 
+
     override fun onStop() {
         super.onStop()
-        count = 0
-        binding.txtCount.text = count.toString()
+        binding.txtCount.text = resetCount().toString()
     }
 
+    private fun resetCount(): Int {
+        initialNumber = 0
+        return initialNumber
+    }
+
+    @Suppress("UNUSED_CHANGED_VALUE")
+    private fun count(current: Int): Int {
+        initialNumber = current
+        return ++initialNumber
+    }
 
 }
